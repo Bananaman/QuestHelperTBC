@@ -1,6 +1,6 @@
 ## Interface: 20400
 ## Title: QuestHelper (TBC)
-## Author: zorbathut, smariot, vipersniper, nesher
+## Author: zorbathut, smariot, vipersniper, nesher, VideoPlayerCode
 ## Notes: Calculates an optimal route for you to follow while questing.
 ## Notes-deDE: Berechnet eine optimale Route für dich, der du während dem Questen folgen kannst.
 ## Notes-frFR: Calcule un itinéraire optimal pour vous de suivre.
@@ -11,9 +11,8 @@
 ## OptionalDeps: Cartographer_Waypoints, TomTom, !Swatter
 ## SavedVariables: QuestHelper_Version QuestHelper_SaveVersion QuestHelper_Locale QuestHelper_Quests QuestHelper_Objectives QuestHelper_FlightInstructors QuestHelper_FlightRoutes QuestHelper_Pref QuestHelper_UID QuestHelper_SaveDate QuestHelper_SeenRealms QuestHelper_Errors
 ## SavedVariablesPerCharacter: QuestHelper_KnownFlightRoutes QuestHelper_Home QuestHelper_CharVersion QuestHelper_Flight_Updates
-## X-Website: http://www.quest-helper.com/
+## X-Website: https://github.com/VideoPlayerCode/QuestHelperTBC
 ## X-Embeds: AstrolabeQH, ChatThrottleLib
-## X-Donate: http://www.quest-helper.com/donate
 
 # That is a pile of saved variables. Let me try to explain them better.
 # 
