@@ -2,7 +2,8 @@ QuestHelper_File["pathfinding.lua"] = "0.95"
 QuestHelper_Loadtime["pathfinding.lua"] = GetTime()
 
 local IRONFORGE_PORTAL = {25,0.255,0.084, "Ironforge portal site"}
-local STORMWIND_CITY_PORTAL = QuestHelper_ConvertCoordsToWrath({36,0.387,0.802, "Stormwind City portal site"}, true)  -- Old pre-Wrath coordinates. I could fix it, but . . . meh.
+--v95 (not used; we use v59 method below instead): local STORMWIND_CITY_PORTAL = QuestHelper_ConvertCoordsToWrath({36,0.387,0.802, "Stormwind City portal site"}, true)  -- Old pre-Wrath coordinates. I could fix it, but . . . meh.
+local STORMWIND_CITY_PORTAL = QuestHelper_ConvertCoordsFromWrath(QuestHelper_ConvertCoordsToWrath({36,0.387,0.802, "Stormwind City portal site"}, true))  -- The annoying "wrath" construction here first forces it into Wrath format, then puts it into Native format.
 local DARNASSUS_PORTAL = {21,0.397,0.824, "Darnassus portal site"}
 local EXODAR_PORTAL = {12,0.476,0.598, "Exodar portal site"}
 
@@ -42,9 +43,8 @@ local static_alliance_routes =
   {
    {{36, 0.639, 0.083}, {25, 0.764, 0.512}, 180}, -- Deeprun Tram
    {{10, 0.718, 0.565}, {51, 0.047, 0.636}, 210}, -- Theramore Isle <--> Menethil Harmor
-   {{36, 0.228, 0.560}, {16, 0.323, 0.441}, 210}, -- Stormwind City <--> Auberdine
    
-   {{36, 0.183, 0.255}, {65, 0.597, 0.694}, 210}, -- Stormwind City <--> Valiance Keep
+   {QuestHelper_ConvertCoordsFromWrath({36, 0.183, 0.255}), {65, 0.597, 0.694}, 210}, -- Stormwind City <--> Valiance Keep (note: new Stormwind location)
    {{51, 0.047, 0.571}, {70, 0.612, 0.626}, 210}, -- Menethil <--> Daggercap Bay
    
    {{60, 0.558, 0.366}, STORMWIND_CITY_PORTAL, 60, true, nil, "STORMWIND_CITY_PORTAL"}, -- Shattrath City --> Stormwind City
@@ -58,6 +58,12 @@ local static_alliance_routes =
    {{67, 0.382, 0.664}, EXODAR_PORTAL, 60, true, nil, "EXODAR_PORTAL"}, -- Dalaran --> Exodar
    {{67, 0.371, 0.667}, SHATTRATH_CITY_PORTAL, 60, true, nil, "SHATTRATH_CITY_PORTAL"}, -- Dalaran --> Shatt
   }
+
+if QuestHelper:IsWrath() then -- siiiiigh
+  table.insert(static_alliance_routes, {{36, 0.228, 0.560}, {16, 0.323, 0.441}, 210}) -- Stormwind City <--> Auberdine (note: new Stormwind location)
+else
+  table.insert(static_alliance_routes, {{51, 0.044, 0.569}, {16, 0.323, 0.441}, 210}) -- Menethil Harbor <--> Auberdine
+end
 
 local static_shared_routes = 
   {
@@ -74,8 +80,8 @@ local static_shared_routes =
    
    {{70, 0.235, 0.578}, {68, 0.496, 0.784}, 210}, -- Kamagua <--> Moa'ki
    {{65, 0.789, 0.536}, {68, 0.480, 0.787}, 210}, -- Unu'pe <--> Moa'ki
-   {{67, 0.559, 0.467}, {66, 0.158, 0.428}, 5, true}, -- Dalaran --> Violet Stand
-   {{66, 0.157, 0.425}, {67, 0.559, 0.468}, 5, true}, -- Violent Stand --> Dalaran (slightly different coordinates, may be important once solid walls are in)
+   {{67, 0.559, 0.467}, {66, 0.158, 0.428}, 5}, -- Dalaran --> Violet Stand
+   {{66, 0.157, 0.425}, {67, 0.559, 0.468}, 5}, -- Violent Stand --> Dalaran (slightly different coordinates, may be important once solid walls are in)
    
    {{34, 0.817, 0.461}, {78, 0.492, 0.312}, 86400}, -- EPL Ebon Hold <--> Scarlet Enclave Ebon Hold. Exists solely to fix some pathing crashes. 24-hour boat ride :D
   }
@@ -197,10 +203,11 @@ local function cont_dist(a, b)
 end
 
 function QuestHelper:ComputeRoute(p1, p2)
+  if not p1 or not p2 then QuestHelper:Error("Boom!") end
+
   for i in ipairs(p1[1]) do QuestHelper: Assert(p1[2][i], "p1 nil flightpath error resurgence!") end
   for i in ipairs(p2[1]) do QuestHelper: Assert(p2[2][i], "p2 nil flightpath error resurgence!") end
 
-  if not p1 or not p2 then QuestHelper:Error("Boom!") end
   local graph = self.world_graph
   
   graph:PrepareSearch()
@@ -273,6 +280,11 @@ function QuestHelper:ComputeTravelTime(p1, p2)
 end
 
 function QuestHelper:CreateGraphNode(c, x, y, n)
+  if not y and not QuestHelper_ZoneLookup[c[1]] then -- exception for Wrath changeover
+    --[[ QuestHelper:Assert(not QuestHelper:IsWrath(), "Zone couldn't be found, and should have been") ]]
+    return
+  end
+
   local node = self.world_graph:CreateNode()
   
   if y then
@@ -281,7 +293,6 @@ function QuestHelper:CreateGraphNode(c, x, y, n)
     node.y = y
     node.name = n
   else
-    QuestHelper: Assert(QuestHelper_ZoneLookup[c[1]], "Zone couldn't be found, and should have been")
     local cont, zone = unpack(QuestHelper_ZoneLookup[c[1]])
     node.c = cont
     node.x, node.y = self.Astrolabe:TranslateWorldMapPosition(cont, zone, c[2], c[3], cont, 0)
@@ -427,7 +438,10 @@ local function getNPCNode(npc)
 end
 
 function QuestHelper:CreateAndAddTransitionNode(z1, z2, pos)
-  QuestHelper: Assert(z1 and z2, "Zone couldn't be found, and should have been")
+  if not z1 or not z2 then
+    --[[ QuestHelper:Assert(not QuestHelper:IsWrath(), "Zone couldn't be found, and should have been") ]]
+    return
+  end
   
   local node = self:CreateGraphNode(pos)
   

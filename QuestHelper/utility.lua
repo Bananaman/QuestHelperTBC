@@ -375,7 +375,7 @@ end
 
 function QuestHelper:IsWrath()
   --return GetBuildInfo():sub(1,1) == '3' or GetBuildInfo() == "0.0.2" -- come on
-  return true -- this had better be true :D
+  return false -- This is TBC! Not wrath!
 end
 
 function QuestHelper:AppendNotificationError(type, data)
