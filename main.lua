@@ -224,7 +224,6 @@ function QuestHelper:Initialize()
       ["static_zhTW.lua"] = true,
 
       ["collect.lua"] = true,
-      ["collect_achievement.lua"] = true,
       ["collect_lzw.lua"] = true,
       ["collect_traveled.lua"] = true,
       ["collect_zone.lua"] = true,

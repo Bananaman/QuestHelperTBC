@@ -109,7 +109,6 @@ function QH_Collector_Init()
   
   QH_Collect_LZW_Init(nil, API)
   
-  QH_Collect_Achievement_Init(QHCData, API)
   QH_Collect_Traveled_Init(QHCData, API)
   QH_Collect_Zone_Init(QHCData, API)
   QH_Collect_Monster_Init(QHCData, API)

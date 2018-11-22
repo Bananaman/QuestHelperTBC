@@ -119,7 +119,6 @@ help.lua
 timeslice.lua
 
 collect.lua
-collect_achievement.lua
 collect_lzw.lua
 collect_traveled.lua
 collect_location.lua
