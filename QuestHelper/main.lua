@@ -365,7 +365,7 @@ function QuestHelper:Initialize()
 
   self:HandlePartyChange()
 
-  self:Nag("all")
+  --self:Nag("all") -- Disable "please submit your data" nagging at startup, since QuestHelper is dead.
 
   for locale in pairs(QuestHelper_StaticData) do
     if locale ~= self.locale then
