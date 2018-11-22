@@ -181,7 +181,6 @@ end
 function QuestHelper:Purgewarning()
   QuestHelper:TextOut("I would consider this a tragic loss, and would appreciate it if you sent me your saved data before going through with it.")
   QuestHelper:TextOut("Enter "..self:HighlightText("/qh nag verbose").." to check and see if you're destroying anything important.")
-  QuestHelper:TextOut("Enter "..self:HighlightText("/qh submit").." for instructions on how to submit your collected data.")
   QuestHelper:TextOut("See the "..self:HighlightText("How You Can Help").." section on the project website for instructions.")
 end
 
@@ -198,9 +197,6 @@ function QuestHelper:Purge(code, force, noreload)
     
     QuestHelper_SaveDate = nil
     QuestHelper_SeenRealms = nil
-    
-    QuestHelper_Collector = nil
-    QuestHelper_Collector_Version = nil
     
     if not noreload then ReloadUI() end
   else
@@ -434,9 +430,6 @@ function QuestHelper:Top(cmd)
   UpdateAddOnMemoryUsage()
   
   local uncd = 0
-  for k, v in pairs(QuestHelper_Collector) do
-    if not v.compressed then uncd = uncd + 1 end
-  end
   uncd = uncd - 1
   local uncs = ""
   if uncd > 0 then
@@ -673,10 +666,6 @@ commands =
   }},
   
   { "Data collection", {
-    {"SUBMIT",
-     "Displays instructions for submitting your collected data.",
-     {}, QuestHelper.Submit, QuestHelper},
-     
     {"NAG",
      "Tells you if you have anything that's missing from the static database. It can only check quests from your own faction, as the quests of your opposing faction are ommitted to save memory.",
        {{"/qh nag verbose", "Prints the specific changes that were found."}}, QuestHelper.Nag, QuestHelper},

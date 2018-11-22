@@ -222,27 +222,6 @@ function QuestHelper:Initialize()
       ["static_ruRU.lua"] = true,
       ["static_zhCN.lua"] = true,
       ["static_zhTW.lua"] = true,
-
-      ["collect.lua"] = true,
-      ["collect_lzw.lua"] = true,
-      ["collect_traveled.lua"] = true,
-      ["collect_zone.lua"] = true,
-      ["collect_location.lua"] = true,
-      ["collect_merger.lua"] = true,
-      ["collect_monster.lua"] = true,
-      ["collect_item.lua"] = true,
-      ["collect_object.lua"] = true,
-      ["collect_loot.lua"] = true,
-      ["collect_patterns.lua"] = true,
-      ["collect_flight.lua"] = true,
-      ["collect_util.lua"] = true,
-      ["collect_quest.lua"] = true,
-      ["collect_equip.lua"] = true,
-      ["collect_notifier.lua"] = true,
-      ["collect_bitstream.lua"] = true,
-      ["collect_spec.lua"] = true,
-      ["collect_upgrade.lua"] = true,
-      ["collect_merchant.lua"] = true,
     }
     
   local uninstallederr = ""
@@ -353,8 +332,6 @@ function QuestHelper:Initialize()
   QuestHelper_FlightRoutes_Local = QuestHelper_FlightRoutes[signature]
   
   QuestHelper_SeenRealms[GetRealmName()] = true -- some attempt at tracking private servers
-  
-  QH_Collector_Init()
   
   self.player_level = UnitLevel("player")
 
@@ -929,8 +906,6 @@ function QuestHelper:OnUpdate()
     
     self:PumpCommMessages()
   --end
-  
-  QH_Collector_OnUpdate()
   
   QH_Timeslice_Increment(GetTime() - tstart, "onupdate")
   
