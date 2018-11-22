@@ -292,13 +292,6 @@ function QuestHelper:Initialize()
     return
   end
   
-  if not GetCategoryList then
-    message(QHText("PRIVATE_SERVER"))
-    QuestHelper_ErrorCatcher_ExplicitError("error id cakbep ten T")
-    QuestHelper = nil
-    return
-  end
-  
   if not DongleStub then
     message(QHText("NOT_UNZIPPED_CORRECTLY"))
     QuestHelper_ErrorCatcher_ExplicitError("not-unzipped-properly")
