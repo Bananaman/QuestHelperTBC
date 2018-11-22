@@ -1,0 +1,146 @@
+## Interface: 30000
+## Title: QuestHelper
+## Author: zorbathut, smariot, vipersniper, nesher
+## Notes: Calculates an optimal route for you to follow while questing.
+## Notes-deDE: Berechnet eine optimale Route für dich, der du während dem Questen folgen kannst.
+## Notes-frFR: Calcule un itinéraire optimal pour vous de suivre.
+## Notes-esES: Calcula la mejor ruta a seguir para usted.
+## Notes-esMX: Calcula la mejor ruta a seguir para usted.
+## Notes-koKR: 노선에 대한 계산을 수행합니다.
+## Version: 0.95
+## OptionalDeps: Cartographer_Waypoints, TomTom, !Swatter
+## SavedVariables: QuestHelper_Version QuestHelper_SaveVersion QuestHelper_Locale QuestHelper_Quests QuestHelper_Objectives QuestHelper_FlightInstructors QuestHelper_FlightRoutes QuestHelper_Pref QuestHelper_UID QuestHelper_SaveDate QuestHelper_SeenRealms QuestHelper_Errors QuestHelper_Collector QuestHelper_Collector_Version
+## SavedVariablesPerCharacter: QuestHelper_KnownFlightRoutes QuestHelper_Home QuestHelper_CharVersion QuestHelper_Flight_Updates
+## X-Website: http://www.quest-helper.com/
+## X-Embeds: AstrolabeQH, ChatThrottleLib
+## X-Donate: http://www.quest-helper.com/donate
+
+# That is a pile of saved variables. Let me try to explain them better.
+# 
+# Old data gathering:
+# QuestHelper_Version: The version of Questhelper last used. Largely irrelevant.
+# QuestHelper_SaveVersion: Save file data structure version number.
+# QuestHelper_Locale: Locale last used to touch the file. Irrelevant and misleading and dangerous.
+# QuestHelper_Quests: Quest database
+# QuestHelper_Objectives: "Objectives". Eugh. I hate that catchall. Monsters, items, objects, and events, in one huge horrible pile.
+# QuestHelper_FlightInstructors: List of known flight instructors.
+# QuestHelper_FlightRoutes: List of known flight routes, with travel time.
+# QuestHelper_SeenRealms: Realms that have been seen by the player (largely exists to catch private servers)
+# QuestHelper_SaveDate: Date of last shutdown.
+# QuestHelper_Collector_Version: Originally part of the new system, now just hanging around until I believe it vanishing won't cause problems.
+#
+# New data gathering:
+# QuestHelper_Collector: Most new data. In one huge horrible pile, but a *properly categorized* huge horrible pile
+#
+# Misc:
+# QuestHelper_Pref: User preferences
+# QuestHelper_UID: User unique ID
+# QuestHelper_Errors: List of errors seen
+#
+# Everything under "Old data gathering" will go away once the new data gathering is in place.
+#
+# Per-character stuff needs to be consolidated as well, which will happen in some future version. I need to see how it handles *removing* variables. And yeah we're adding more per-character stuff already argharblrghab
+
+
+bst_pre.lua
+
+error.lua
+
+bst_libaboutpanel.lua
+LibAboutPanel\lib.xml
+
+bst_astrolabe.lua
+AstrolabeQH\Load.xml
+
+bst_ctl.lua
+ChatThrottleLib\ChatThrottleLib.xml
+
+static_deDE.lua
+static_enUS.lua
+static_esES.lua
+static_esMX.lua
+static_frFR.lua
+static_koKR.lua
+static_ruRU.lua
+static_zhCN.lua
+static_zhTW.lua
+
+static.lua
+changes.lua
+
+lang.lua
+lang\dadk.lua
+lang\dede.lua
+lang\elel.lua
+lang\enus.lua
+lang\eses.lua
+lang\esmx.lua
+lang\frfr.lua
+lang\huhu.lua
+lang\itit.lua
+lang\kokr.lua
+lang\nlnl.lua
+lang\nono.lua
+lang\plpl.lua
+lang\ptbr.lua
+lang\ptpt.lua
+lang\roro.lua
+lang\ruru.lua
+lang\svse.lua
+lang\trtr.lua
+lang\zhcn.lua
+lang\zhtw.lua
+
+upgrade.lua
+main.lua
+recycle.lua
+objective.lua
+quest.lua
+questlog.lua
+utility.lua
+dodads.lua
+graph.lua
+teleport.lua
+pathfinding.lua
+routing.lua
+custom.lua
+menu.lua
+hidden.lua
+nag.lua
+comm.lua
+mapbutton.lua
+pattern.lua
+flightpath.lua
+tracker.lua
+objtips.lua
+textviewer.lua
+help.lua
+
+timeslice.lua
+
+collect.lua
+collect_achievement.lua
+collect_lzw.lua
+collect_traveled.lua
+collect_location.lua
+collect_zone.lua
+collect_merger.lua
+collect_monster.lua
+collect_item.lua
+collect_object.lua
+collect_loot.lua
+collect_patterns.lua
+collect_flight.lua
+collect_util.lua
+collect_quest.lua
+collect_notifier.lua
+collect_equip.lua
+collect_spec.lua
+collect_bitstream.lua
+collect_upgrade.lua
+collect_merchant.lua
+
+cartographer.lua
+tomtom.lua
+
+bst_post.lua
