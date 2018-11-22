@@ -679,12 +679,12 @@ commands =
 
   { "Performance and debug", {
     {"PERF",
-     "Sets or shows the route workload. Higher means more agressive route updating, lower means better performance Accepts numbers between 10% and 500%.",
+     "Sets or shows the route workload. Higher means more agressive route updating, lower means better performance. Accepts numbers between 10% and 500%.",
      {{"/qh perf", "Show current Performance Factor"},
       {"/qh perf 1", "Sets standard performance"},
       {"/qh perf 50%", "Does half as much background processing"},
       {"/qh perf 3", "Computes routes 3 times more aggressively.  Better have some good horsepower!"}},
-      QuestHelper.genericSetScale, QuestHelper, "perf_scale", "performance factor", .01, 5},
+      QuestHelper.genericSetScale, QuestHelper, "perf_scale", "performance factor", .1, 5},
     
     {"PERFLOAD",
        "Sets or shows the initialization workload. Higher numbers will make QuestHelper load faster, lower numbers will result in better framerate while it's loading.",

@@ -41,7 +41,7 @@ QuestHelper_DefaultPref =
   tomtom_wp = true,
   flight_time = true,
   locale = GetLocale(), -- This variable is used for display purposes, and has nothing to do with the collected data.
-  perf_scale = 1,       -- How much background processing can the current machine handle?  Higher means more load, lower means better performance.
+  perf_scale = 0.4,       -- How much background processing can the current machine handle?  Higher means more load, lower means better performance.
   perfload_scale = 1,    -- Performance scale to use on startup
   map_button = true
  }
