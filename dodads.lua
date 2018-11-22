@@ -756,7 +756,7 @@ function QuestHelper:CreateMipmapDodad()
       if edge then
         local angle = QuestHelper.Astrolabe:GetDirectionToIcon(self)
         if GetCVar("rotateMinimap") == "1" then
-          angle = angle + QuestHelper.Astrolabe:GetFacing()
+          angle = angle + MiniMapCompassRing:GetFacing()
         end
         
         self.arrow:SetFacing(angle)

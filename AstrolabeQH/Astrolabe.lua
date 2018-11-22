@@ -432,17 +432,8 @@ end
 local minimapRotationEnabled = false;
 local minimapShape = false;
 
-local MinimapCompassTexture = MinimapCompassTexture;
 local MinimapCompassRing = MiniMapCompassRing;
-function Astrolabe:GetFacing()
-  if MinimapCompassRing then  -- 3.1 hackery
-    return MinimapCompassRing:GetFacing()
-  else
-    local x, y = MinimapCompassTexture:GetTexCoord()
-    return atan2(y - 0.5, x - 0.5) - 3.14159 / 4 * 5
-  end
-end
-local minimapRotationOffset = -Astrolabe.GetFacing()
+local minimapRotationOffset = -MinimapCompassRing:GetFacing()
 
 local function placeIconOnMinimap( minimap, minimapZoom, mapWidth, mapHeight, icon, dist, xDist, yDist )
 	local mapDiameter;
@@ -551,7 +542,7 @@ function Astrolabe:PlaceIconOnMinimap( icon, continent, zone, xPos, yPos )
 	
 	minimapRotationEnabled = GetCVar("rotateMinimap") ~= "0"
 	if ( minimapRotationEnabled ) then
-		minimapRotationOffset = -Astrolabe.GetFacing()
+		minimapRotationOffset = -MinimapCompassRing:GetFacing()
 	end
 	
 	-- check Minimap Shape
@@ -627,7 +618,7 @@ do
 				
 				minimapRotationEnabled = GetCVar("rotateMinimap") ~= "0"
 				if ( minimapRotationEnabled ) then
-					minimapRotationOffset = -Astrolabe.GetFacing()
+					minimapRotationOffset = -MinimapCompassRing:GetFacing()
 				end
 				
 				-- check current frame rate
@@ -753,7 +744,7 @@ do
 			if ( C and C ~= -1 ) then
 				minimapRotationEnabled = GetCVar("rotateMinimap") ~= "0"
 				if ( minimapRotationEnabled ) then
-					minimapRotationOffset = Astrolabe.GetFacing()
+					minimapRotationOffset = -MinimapCompassRing:GetFacing()
 				end
 				
 				-- check current frame rate
