@@ -1,5 +1,5 @@
 ## Interface: 20400
-## Title: QuestHelper
+## Title: QuestHelper (TBC)
 ## Author: zorbathut, smariot, vipersniper, nesher
 ## Notes: Calculates an optimal route for you to follow while questing.
 ## Notes-deDE: Berechnet eine optimale Route für dich, der du während dem Questen folgen kannst.
