@@ -599,43 +599,9 @@ function QuestHelper_ConvertCoordsFromWrath(data, force)
 end
 
 local QuestHelper_PrivateServerBlacklist_Find = {
-  "WoWFusion",
-  "WoWgasm",
-  "Egyéb",
-  "Reagens/",
 }
 
 local QuestHelper_PrivateServerBlacklist_Exact = {
-  "WarcraftMMO",
-  "TAXI",
-  "GeNiuS",
-  "Columbian Drug Dealer",
-  "PlayBoy Fun Vendor",
-  "Gm Vendor",
-  "Accessories Vendor",
-  "General Goods Vendor",
-  "Party Vendor",
-  "Potion Vendor",
-  "Totem Vendor",
-  "Gm Vendor",
-  "Misc",
-  "Off-Hands Vendor",
-  "Ore Vendor",
-  "Enchanting Vendor",
-  "Gem Vendor",
-  "Fooooood and Drinks!",
-  "I Sell Consumables",
-  "Armor Raid Tier V",
-  "world translate",
-  "Bobby", -- I have no idea if this is an actual private server NPC
-  "Nejeib", -- same
-  "Shaman Set Vendor",
-  "Warrior Set Vendor",
-  "Priest Set Vendor",
-  "Warlock Set Vendor",
-  "Paladin Set Vendor",
-  "Hunter Set Vendor",
-  "Mage Set Vendor",  -- yeah yeah this isn't everyone whatever
 }
 
 local matchstring = nil
