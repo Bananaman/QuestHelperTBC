@@ -440,6 +440,7 @@ function QuestHelper:Initialize()
 
   local version = GetAddOnMetadata("QuestHelper", "Version") or "Unknown"
 
+  -- Parse the user's earlier QuestHelper version number, if available.
   local major, minor = (QuestHelper_Version or ""):match("^(%d+)%.(%d+)")
   major, minor = tonumber(major), tonumber(minor)
 
@@ -457,6 +458,9 @@ function QuestHelper:Initialize()
       end
     end
   end
+
+  -- Keep track of the current version (remembers the user's last-used QH version).
+  QuestHelper_Version = version
 
   self:SetScript("OnUpdate", self.OnUpdate)
 

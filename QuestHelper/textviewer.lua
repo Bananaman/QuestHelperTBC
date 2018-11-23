@@ -24,9 +24,9 @@ end
 
 local frammis = {}
 
-function QuestHelper:ShowText(text, title, width, border, divide)
-  local border = border or 8
-  local divide = divide or 4
+function QuestHelper:ShowText(text, title)
+  local border = 8
+  local divide = 4
   
   if not frammis[border] then frammis[border] = {} end
   viewer = frammis[border][divide]
@@ -90,7 +90,7 @@ function QuestHelper:ShowText(text, title, width, border, divide)
   viewer.text:SetText(text or "No text.")
   viewer.scrollframe:SetVerticalScroll(0)
   
-  local w = width or math.min(600, math.max(100, viewer.text:GetStringWidth()))
+  local w = math.min(600, math.max(100, viewer.text:GetStringWidth()))
   viewer.text:SetWidth(w)
   viewer:SetWidth(w+border * 2)
   viewer.scrollframe:SetWidth(w)
