@@ -451,6 +451,22 @@ local function AddLoc(self, index, x, y, w, why)
     local pair = QuestHelper_ZoneLookup[index]
     if not pair then return end -- that zone doesn't exist! We require more vespene gas. Not enough rage!
     local c, z = pair[1], pair[2]
+    if index == 36 or index == 34 then -- Translate coordinates BACK from Wrath zone redesigns: Stormwind City (36) and Eastern Plaguelands (34)
+      -- If we don't do this, all Stormwind and EPL objectives/nodes would be in the WRONG locations, since our Static DB comes from Wrath!
+      -- NOTE: Ant trails/Arrow automatically aims at the "AddLoc()" positions, so we don't need to touch any other code when fixing the positions.
+      -- That's further confirmed by the fact that the code below does NECESSARY "Astrolabe translate world map pos" to FINALIZE USABLE x/y offsets.
+      -- And the "what is closest? walk, flight path or zone border?" routing uses this code too, via flightpath.lua's "getWalkToFlight()" whose
+      -- code gets the objective (such as a flightmaster) and then runs "PrepareRouting()" which in turn leads to "AddLoc()" calls, and THEN it
+      -- reads the "objective's" FINISHED/FINAL "positions" when it actually considers the closest routing to all nearby points of interest.
+      -- Confirmed via code: Map icons, ant trails, arrow, flightmasters. Visual-only confirmed (Not via code): Zone transition locs at Stormwind.
+      -- Basically, an "objective" is created and THEN all of its positions are added via "AddLoc()" and translated to their final offsets, and
+      -- THEN they're used for whatever final purpose they have (adding icons to map/minimap, figuring closest routing, drawing trails, etc...).
+      -- NOTE: If the user has auto-detected some MISSING quest, its coordinates would already be correct and would be wrongly translated again
+      -- here, but that's nothing to worry about since the static database definitely already contains ALL Vanilla/TBC Stormwind and EPL quests!
+      --print('Stormwind Pos (Org):', x, y, c, z, why)
+      _, x, y = unpack(QuestHelper_ConvertCoordsFromWrath({index, x, y}, true))
+      --print('Stormwind Pos (Fix):', x, y, c, z, why)
+    end
     x, y = self.qh.Astrolabe:TranslateWorldMapPosition(c, z, x, y, c, 0)
     
     x = x * self.qh.continent_scales_x[c]
